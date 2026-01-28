@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Ecosystem Architecture</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .architecture {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .client-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .server-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .infrastructure-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .client-box, .server-box, .infra-box {
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .client-box:hover, .server-box:hover, .infra-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .client-box {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+        }
+
+        .server-box {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .infra-box {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+        }
+
+        .language-servers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .lang-server {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .protocol-support {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .protocol {
+            background: rgba(255,255,255,0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .mesh-patterns {
+            margin-top: 40px;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pattern-box {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pattern-box:hover {
+            transform: scale(1.02);
+        }
+
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .ports {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .port {
+            background: rgba(255,255,255,0.4);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .animated {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">🤖 Complete Agent Ecosystem Architecture</h1>
+    <p style="text-align: center; font-size: 1.1em; color: #666; margin-bottom: 40px;">
+        A2A & MCP Protocol Implementation with Multi-Language Support, Security, RAG, and Agentic Mesh
+    </p>
+
+    <div class="architecture">
+        <!-- Clients Section -->
+        <div class="client-section">
+            <h3 style="text-align: center; color: #0984e3;">🖥️ Clients</h3>
+
+            <div class="client-box">
+                <h4>👥 A2A Clients</h4>
+                <div style="margin: 10px 0;">
+                    <div>🌐 Web Client</div>
+                    <div>📱 Mobile Client</div>
+                    <div>🖥️ Desktop Client</div>
+                    <div>☁️ Claude Desktop</div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                </div>
+            </div>
+
+            <div class="client-box">
+                <h4>🔧 MCP Clients</h4>
+                <div style="margin: 10px 0;">
+                    <div>🤖 Claude Desktop</div>
+                    <div>⚡ MCP Java Client</div>
+                    <div>🔌 Tool Connectors</div>
+                    <div>🌊 Streaming Clients</div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">MCP</span>
+                </div>
+            </div>
+
+            <div class="client-box">
+                <h4>🕸️ Agent Catalog</h4>
+                <div style="margin: 10px 0;">
+                    <div>🔍 Dynamic Discovery</div>
+                    <div>🎯 Query Routing</div>
+                    <div>⚖️ Load Balancing</div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                    <span class="protocol">MCP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servers Section -->
+        <div class="server-section">
+            <h3 style="text-align: center; color: #00a085;">🚀 Multi-Language Agent Servers</h3>
+
+            <div class="server-box">
+                <h4>☕ Java + Spring Boot Agents</h4>
+                <div class="language-servers">
+                    <div class="lang-server">
+                        <strong>🏪 Car Booking Agent</strong>
+                        <div style="font-size: 0.9em; margin-top: 5px;">
+                            bookCar(), cancelCar(), getStatus()
+                        </div>
+                        <div class="ports">
+                            <span class="port">:7860</span>
+                        </div>
+                    </div>
+                    <div class="lang-server">
+                        <strong>📚 Library Agent</strong>
+                        <div style="font-size: 0.9em; margin-top: 5px;">
+                            holdBook(), getBookList(), returnBook()
+                        </div>
+                        <div class="ports">
+                            <span class="port">:7862</span>
+                        </div>
+                    </div>
+                    <div class="lang-server">
+                        <strong>🎬 Movies Agent</strong>
+                        <div style="font-size: 0.9em; margin-top: 5px;">
+                            getBollywoodMovies(), getSRKMovies()
+                        </div>
+                        <div class="ports">
+                            <span class="port">:7861</span>
+                        </div>
+                    </div>
+                    <div class="lang-server">
+                        <strong>🍰 Multi-Domain Agents</strong>
+                        <div style="font-size: 0.9em; margin-top: 5px;">
+                            Dessert, Gym, Restaurant, Yoga
+                        </div>
+                        <div class="ports">
+                            <span class="port">:7863</span>
+                            <span class="port">:7864</span>
+                            <span class="port">:7865</span>
+                            <span class="port">:7866</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                    <span class="protocol">MCP</span>
+                    <span class="protocol">@EnableAgent</span>
+                </div>
+            </div>
+
+            <div class="server-box">
+                <h4>🎯 Kotlin Agents</h4>
+                <div class="lang-server">
+                    <strong>🗺️ Route Planner Agent</strong>
+                    <div style="font-size: 0.9em; margin-top: 5px;">
+                        planOptimalRoute(), generateCustomMap(), findNearbyPlaces()
+                    </div>
+                    <div style="font-size: 0.8em; color: rgba(255,255,255,0.8);">
+                        Advanced geospatial operations with traffic analysis
+                    </div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                    <span class="protocol">MCP</span>
+                    <span class="protocol">Coroutines</span>
+                </div>
+            </div>
+
+            <div class="server-box">
+                <h4>⚡ Scala Agents</h4>
+                <div class="lang-server">
+                    <strong>🍦 Ice Cream Agent</strong>
+                    <div style="font-size: 0.9em; margin-top: 5px;">
+                        getTemperature(), recommendFlavor(), checkAvailability()
+                    </div>
+                    <div style="font-size: 0.8em; color: rgba(255,255,255,0.8);">
+                        Functional programming with Spark integration
+                    </div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                    <span class="protocol">MCP</span>
+                    <span class="protocol">Spark</span>
+                </div>
+            </div>
+
+            <div class="server-box">
+                <h4>🎨 Groovy Agents</h4>
+                <div class="lang-server">
+                    <strong>🏡 Property Maintenance Agent</strong>
+                    <div style="font-size: 0.9em; margin-top: 5px;">
+                        scheduleLawnMowing(), scheduleSnowRemoval(), getPricing()
+                    </div>
+                    <div style="font-size: 0.8em; color: rgba(255,255,255,0.8);">
+                        Dynamic scripting with rapid prototyping
+                    </div>
+                </div>
+                <div class="protocol-support">
+                    <span class="protocol">A2A</span>
+                    <span class="protocol">MCP</span>
+                    <span class="protocol">Dynamic</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Infrastructure Section -->
+        <div class="infrastructure-section">
+            <h3 style="text-align: center; color: #e84393;">🏗️ Infrastructure</h3>
+
+            <div class="infra-box">
+                <h4>🔐 Security Layer</h4>
+                <div style="margin: 10px 0; font-size: 0.9em;">
+                    <div>🛡️ Spring Security</div>
+                    <div>👤 RBAC (Role-Based Access)</div>
+                    <div>🔑 JWT Authentication</div>
+                    <div>🔒 @PreAuthorize</div>
+                    <div>📋 USER/ADMIN Roles</div>
+                </div>
+            </div>
+
+            <div class="infra-box">
+                <h4>🗄️ Database & Storage</h4>
+                <div style="margin: 10px 0; font-size: 0.9em;">
+                    <div>🐘 PostgreSQL</div>
+                    <div>🍃 MongoDB</div>
+                    <div>⚡ Redis Cache</div>
+                    <div>📊 Neo4j Graph DB</div>
+                    <div>🔍 Elasticsearch</div>
+                </div>
+            </div>
+
+            <div class="infra-box">
+                <h4>🧠 RAG System</h4>
+                <div style="margin: 10px 0; font-size: 0.9em;">
+                    <div>📖 Document Ingestion</div>
+                    <div>🔤 Vector Embeddings</div>
+                    <div>🎯 Similarity Search</div>
+                    <div>⚡ Retrieval Augmentation</div>
+                    <div>🔄 Context Generation</div>
+                </div>
+            </div>
+
+            <div class="infra-box">
+                <h4>📊 Monitoring</h4>
+                <div style="margin: 10px 0; font-size: 0.9em;">
+                    <div>📈 Prometheus</div>
+                    <div>📊 Grafana</div>
+                    <div>🔍 Jaeger Tracing</div>
+                    <div>⚡ Micrometer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flow-arrow animated">⬇️ ⬇️ ⬇️</div>
+
+    <!-- Agentic Mesh Patterns -->
+    <div class="mesh-patterns">
+        <h3 style="text-align: center; color: #667eea; font-size: 1.8em;">🕸️ Agentic Mesh Patterns</h3>
+
+        <div class="pattern-grid">
+            <div class="pattern-box">
+                <h4>🔄 Pipeline Mesh</h4>
+                <p>Sequential processing where agents handle specific workflow parts. Recursive query processing until completion.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    pipeLineMesh(query) → Agent1 → Agent2 → Result
+                </div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>🌟 Hub and Spoke</h4>
+                <p>Central agent identifies sub-queries and delegates to specialized agents for comprehensive answers.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    hubAndSpoke(query) → SubQueries → Aggregation
+                </div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>📋 Blackboard Pattern</h4>
+                <p>Collaborative knowledge building where expert agents contribute to a shared blackboard for synthesis.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    blackboard(query) → Experts → Synthesis
+                </div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>🎭 Actor-Based Mesh</h4>
+                <p>Akka-powered distributed agents with clustering, self-healing, and asynchronous communication.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    AbstractBehavior&lt;AgentMessage&gt;
+                </div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>🌊 Reactive Streams</h4>
+                <p>Project Reactor/RxJava streams for high-throughput, real-time agent collaboration.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    Flux&lt;TaskRequest&gt; → Processing Pipeline
+                </div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>📡 Event-Driven Mesh</h4>
+                <p>Kafka-powered event streaming with loose coupling and high scalability between agents.</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    @KafkaListener → Event Processing
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="icon">🚀</div>
+            <h4>High Performance</h4>
+            <p>Optimized for throughput with async processing and connection pooling</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🔄</div>
+            <h4>Protocol Agnostic</h4>
+            <p>Seamless A2A and MCP protocol support in single codebase</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🌐</div>
+            <h4>Multi-Language</h4>
+            <p>Java, Kotlin, Scala, Groovy agents with unified architecture</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🔐</div>
+            <h4>Enterprise Security</h4>
+            <p>RBAC, JWT, OAuth2 with fine-grained authorization controls</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🧠</div>
+            <h4>AI-Powered RAG</h4>
+            <p>Intelligent document retrieval with vector embeddings</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">📊</div>
+            <h4>Full Observability</h4>
+            <p>Distributed tracing, metrics, and real-time monitoring</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 15px;">
+        <h3>🌟 Live Interactive Demos Available</h3>
+        <p>Experience different mesh patterns: Supply Chain • Education • Healthcare • Manufacturing • Quiz</p>
+        <div style="font-size: 0.9em; margin-top: 10px;">
+            <strong>GitHub:</strong> Multiple repositories with complete implementations<br>
+            <strong>HuggingFace:</strong> Live deployed demos with real-time interaction
+        </div>
+    </div>
+</div>
+</body>
+</html>
