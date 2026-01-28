@@ -199,6 +199,51 @@ Add any of the servers to your configuration. For example, to add the Yoga serve
 }
 }
 ```
+for all the 4 servers you need to do this
+
+```json
+ "yogaserver": {
+        "command": "java",
+        "args": [
+            "-jar",
+            "/work/a2a-mcp-bridge/target/mcp-connector-full.jar",
+            "http://localhost:7864"
+        ],
+        "timeout": 30000
+    }
+
+,
+     "RestaurantServer": {
+        "command": "java",
+        "args": [
+            "-jar",
+            "/work/a2a-mcp-bridge/target/mcp-connector-full.jar",
+            "http://localhost:7865"
+        ],
+        "timeout": 30000
+    }
+	,
+     "GymServer": {
+        "command": "java",
+        "args": [
+            "-jar",
+            "/work/a2a-mcp-bridge/target/mcp-connector-full.jar",
+            "http://localhost:7862"
+        ],
+        "timeout": 30000
+    }
+	,
+     "DessertServer": {
+        "command": "java",
+        "args": [
+            "-jar",
+            "/work/a2a-mcp-bridge/target/mcp-connector-full.jar",
+            "http://localhost:7863"
+        ],
+        "timeout": 30000
+    }
+```
+
 
 You can download the `mcp-connector-full.jar` from [here](https://github.com/vishalmysore/mcp-connector/releases/download/release2/mcp-connector-full.jar).
 This is a mandatory component that enables communication between your client and server for MCP protocol. For A2A this is not required.
